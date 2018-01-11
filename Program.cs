@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeWalker
@@ -15,24 +12,6 @@ namespace CodeWalker
         static void Main(string[] args)
         {
 
-            bool menumode = false;
-            bool explorermode = false;
-            if ((args != null) && (args.Length > 0))
-            {
-                foreach (string arg in args)
-                {
-                    string argl = arg.ToLowerInvariant();
-                    if (argl == "menu")
-                    {
-                        menumode = true;
-                    }
-                    if (argl == "explorer")
-                    {
-                        explorermode = true;
-                    }
-                }
-            }
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -40,18 +19,12 @@ namespace CodeWalker
             try
             {
 #endif
-                if (menumode)
+                if (args.Length == 0)
                 {
-                    Application.Run(new MenuForm());
+                    args = new string[] { "world" };
                 }
-                else if (explorermode)
-                {
-                    Application.Run(new ExploreForm());
-                }
-                else
-                {
-                    Application.Run(new WorldForm());
-                }
+   
+                CommandLine.CommandLine.Run(args);
 #if !DEBUG
             }
             catch (Exception ex)

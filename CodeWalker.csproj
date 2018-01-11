@@ -90,6 +90,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\CW.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
@@ -144,6 +147,40 @@
     <Compile Include="BrowseForm.Designer.cs">
       <DependentUpon>BrowseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandLine\Arguments.cs" />
+    <Compile Include="CommandLine\Commandline.cs" />
+    <Compile Include="CommandLine\Forms\LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandLine\Forms\LogForm.Designer.cs">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandLine\Forms\MetaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandLine\Forms\MetaForm.Designer.cs">
+      <DependentUpon>MetaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandLine\Forms\Rsc7Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandLine\Forms\Rsc7Form.Designer.cs">
+      <DependentUpon>Rsc7Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandLine\Forms\RpfForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandLine\Forms\RpfForm.Designer.cs">
+      <DependentUpon>RpfForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandLine\Options.cs" />
+    <Compile Include="CommandLine\Forms\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandLine\Forms\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Glob.cs" />
     <Compile Include="ExploreForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -456,6 +493,21 @@
     <EmbeddedResource Include="BrowseForm.resx">
       <DependentUpon>BrowseForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CommandLine\Forms\LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandLine\Forms\MetaForm.resx">
+      <DependentUpon>MetaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandLine\Forms\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandLine\Forms\Rsc7Form.resx">
+      <DependentUpon>Rsc7Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandLine\Forms\RpfForm.resx">
+      <DependentUpon>RpfForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExploreForm.resx">
       <DependentUpon>ExploreForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -604,6 +656,7 @@
       <Name>CodeWalker.WinForms</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using CodeWalker.GameFiles;
 using Point = System.Drawing.Point;
 
 namespace CodeWalker
@@ -415,10 +415,125 @@ namespace CodeWalker
             return p;
         }
 
-
     }
 
+    public static class FileUtil
+    {
+        // Expand normal files
+        public static FileSystemInfo[] Expand(string pattern)
+        {
+            return Glob.Glob.Expand(pattern.Replace('/', '\\')).ToArray();
+        }
 
+        public static FileSystemInfo[] Expand(string[] patterns)
+        {
+            var files = new List<FileSystemInfo>();
+
+            for (int i = 0; i < patterns.Length; i++)
+            {
+                files.AddRange(Expand(patterns[i]));
+            }
+
+            return files.ToArray();
+        }
+
+        public static FileSystemInfo[] Expand(IEnumerable<string> patterns)
+        {
+            return Expand(patterns.ToArray());
+        }
+
+        // Expand RPF files
+        public static FileSystemInfo[] Expand(RpfManager rpfMan, string pattern)
+        {
+            if(pattern.StartsWith("gta://"))
+            {
+                return Glob.Glob.Expand(rpfMan, pattern.Substring(6).Replace('/', '\\')).ToArray();
+            }
+            else
+            {
+                return Glob.Glob.Expand(pattern.Replace('/', '\\')).ToArray();
+            }
+        }
+
+        public static FileSystemInfo[] Expand(RpfManager rpfMan, string[] patterns)
+        {
+            var files = new List<FileSystemInfo>();
+
+            for (int i = 0; i < patterns.Length; i++)
+            {
+                files.AddRange(Expand(rpfMan, patterns[i]));
+            }
+
+            return files.ToArray();
+        }
+
+        public static FileSystemInfo[] Expand(RpfManager rpfMan, IEnumerable<string> pattern)
+        {
+            return Expand(rpfMan, pattern.ToArray());
+        }
+
+        // Get full extension like .ytyp.xml
+        public static string GetFullExtension(string fileName)
+        {
+            string[] parts = fileName.Split('\\').Last().Split('.');
+            var sb = new StringBuilder();
+
+            for (int j = parts.Length - 1; j >= 1; j--)
+            {
+                if (j < parts.Length - 1)
+                {
+                    sb.Insert(0, '.');
+                }
+
+                sb.Insert(0, parts[j]);
+            }
+
+            return sb.ToString();
+        }
+
+        public static string GetRelativePath(string filespec, string folder)
+        {
+            if(filespec == folder)
+            {
+                return ".";
+            }
+
+            Uri pathUri = new Uri(filespec);
+
+            if (!folder.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                folder += Path.DirectorySeparatorChar;
+            }
+
+            Uri folderUri = new Uri(folder);
+
+            return Uri.UnescapeDataString(folderUri.MakeRelativeUri(pathUri).ToString().Replace('/', Path.DirectorySeparatorChar));
+        }
+
+        // Helper method to not overwrite file if already exists
+        public static string GetUniqueFileName(string fileName)
+        {
+            var    info      = new FileInfo(fileName);
+            string directory = Path.GetDirectoryName(fileName);
+            string name      = Path.GetFileNameWithoutExtension(info.Name).Split('.').First();
+            string fullExt   = FileUtil.GetFullExtension(info.Name);
+
+            if (File.Exists(fileName))
+            {
+                int j = 1;
+
+                while (File.Exists(directory + "\\" + name + " (" + j + ")." + fullExt))
+                {
+                    j++;
+                }
+
+                fileName = directory + "\\" + name + " (" + j + ")." + fullExt;
+            }
+
+            return fileName;
+        }
+
+    }
 
 
 
