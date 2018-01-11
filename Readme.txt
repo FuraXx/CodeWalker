@@ -73,6 +73,19 @@ To activate the explorer mode, run the command:
 CodeWalker.exe explorer
 Alternatively, run the CodeWalker Explorer batch file in the program's directory.
 
+Command Line:
+-------------
+Run 'CodeWalker.exe help' to get a list of available commands.
+Run 'CodeWalker.exe help <command>' to get a list of available arguments for the command.
+
+For input files, slashes are automatically replaced with antislashes.
+
+You can use globbing for input files. Example : 'CodeWalker.exe meta --export -i "c:\metas\*.{ytyp,ymap}"'
+You can use gta:// protocol to access files inside gta folder including rpf archives content. Example : 'CodeWalker.exe meta --extract -i "gta://**\*.xml"'
+
+In most commands, you can specify an output directory (-o, --output). Example : 'CodeWalker.exe meta --extract -i "gta://**\*.xml -o c:\extracted"
+
+Output directories will be created automatically.
 
 Main Toolbar:
 -------------
