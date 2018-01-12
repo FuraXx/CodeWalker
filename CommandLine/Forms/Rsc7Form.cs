@@ -43,12 +43,12 @@ namespace CodeWalker.CommandLine.Forms
 
         public void CmdInflate()
         {
-            var inputFiles = Options.InputFiles.ToList();
+            var inputFiles = Options.InputFiles?.ToList();
 
             if (inputFiles == null)
             {
                 MessageBox.Show("Please specify at least one input file", "CodeWalker by dexyfex");
-                return;
+                Application.Exit();
             }
 
             for (int i = 0; i < inputFiles.Count; i++)
@@ -161,12 +161,12 @@ namespace CodeWalker.CommandLine.Forms
 
         public void CmdDeflate()
         {
-            var inputFiles = Options.InputFiles.ToList();
+            var inputFiles = Options.InputFiles?.ToList();
 
             if (inputFiles == null)
             {
                 MessageBox.Show("Please specify at least one input file", "CodeWalker by dexyfex");
-                return;
+                Application.Exit();
             }
 
             for (int i = 0; i < inputFiles.Count; i++)

@@ -49,12 +49,12 @@ namespace CodeWalker.CommandLine.Forms
 
         private void CmdExport()
         {
-            var inputFiles = Options.InputFiles.ToList();
+            var inputFiles = Options.InputFiles?.ToList();
 
             if (inputFiles == null)
             {
                 MessageBox.Show("Please specify at least one input file", "CodeWalker by dexyfex");
-                return;
+                Application.Exit();
             }
 
             UpdatePercent("Meta export", 0);
@@ -188,12 +188,12 @@ namespace CodeWalker.CommandLine.Forms
 
         private void CmdImport()
         {
-            var inputFiles = Options.InputFiles.ToList();
+            var inputFiles = Options.InputFiles?.ToList();
 
             if (inputFiles == null)
             {
                 MessageBox.Show("Please specify at least one input file", "CodeWalker by dexyfex");
-                return;
+                Application.Exit();
             }
 
             for (int i = 0; i < inputFiles.Count; i++)
@@ -292,13 +292,13 @@ namespace CodeWalker.CommandLine.Forms
 
         private void CmdGenStructs()
         {
-            var inputFiles   = Options.InputFiles.ToList();
-            bool cacheNeeded = inputFiles.FindIndex(e => e.Contains("gta://")) != -1;
+            var inputFiles   = Options.InputFiles?.ToList();
+            bool cacheNeeded = inputFiles?.FindIndex(e => e.Contains("gta://")) != -1;
 
             if (inputFiles == null)
             {
                 MessageBox.Show("Please specify at least one input file", "CodeWalker by dexyfex");
-                return;
+                Application.Exit();
             }
 
             UpdatePercent("Meta genstructs", 0);

@@ -38,12 +38,12 @@ namespace CodeWalker.CommandLine.Forms
 
         public void CmdExtract()
         {
-            var inputFiles = Options.InputFiles.ToList();
+            var inputFiles = Options.InputFiles?.ToList();
 
             if (inputFiles == null)
             {
                 MessageBox.Show("Please specify at least one input file", "CodeWalker by dexyfex");
-                return;
+                Application.Exit();
             }
 
             UpdatePercent("RPF extract", 0);
