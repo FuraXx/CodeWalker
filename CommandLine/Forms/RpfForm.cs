@@ -96,9 +96,15 @@ namespace CodeWalker.CommandLine.Forms
                     }
                     else if (inputFile is RpfFileInfo)
                     {
-                        var info           = inputFile  as RpfFileSystemInfo;
-                        RpfFileEntry entry = info.Entry as RpfFileEntry;
-                        byte[] data        = entry.File.ExtractFile(entry);
+                        var    info  = inputFile  as RpfFileSystemInfo;
+                        var    entry = info.Entry as RpfFileEntry;
+                        byte[] data  = entry.File.ExtractFile(entry);
+
+                        if(entry is RpfResourceFileEntry)
+                        {
+                            data = ResourceBuilder.Compress(data);
+                            data = ResourceBuilder.AddResourceHeader(entry as RpfResourceFileEntry, data);
+                        }
 
                         File.WriteAllBytes(targetFile, data);
                     }
